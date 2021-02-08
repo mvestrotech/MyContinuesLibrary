@@ -47,6 +47,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "baseHref": "https://mvestrotech.github.io/mycontinueslibrary",
               "budgets": [
                 {
                   "type": "initial",
