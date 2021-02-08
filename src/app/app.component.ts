@@ -7,17 +7,20 @@ import firebase from 'firebase';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = 'MyLibrary';
   constructor() {
     // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyCRRynQdnBXrgDSDwpKOTuMyhqg7smSVZo",
-      authDomain: "mylibrary-37138.firebaseapp.com",
-      projectId: "mylibrary-37138",
-      storageBucket: "mylibrary-37138.appspot.com",
-      messagingSenderId: "588540882288",
-      appId: "1:588540882288:web:e9280792184be043d333b5"
+    const firebaseConfig = {
+      apiKey: 'AIzaSyCRRynQdnBXrgDSDwpKOTuMyhqg7smSVZo',
+      authDomain: 'mylibrary-37138.firebaseapp.com',
+      projectId: 'mylibrary-37138',
+      storageBucket: 'mylibrary-37138.appspot.com',
+      messagingSenderId: '588540882288',
+      appId: '1:588540882288:web:e9280792184be043d333b5'
     };
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length){
+      firebase.initializeApp(firebaseConfig);
+    }
   }
 }

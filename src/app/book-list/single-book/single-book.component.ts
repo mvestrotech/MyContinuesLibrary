@@ -18,7 +18,7 @@ export class SingleBookComponent implements OnInit {
 
   ngOnInit(): void {
     this.book = new Book('', '');
-    const id = this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params.id;
     this.bookService.getSingleBook(+id).then(
       (book: Book) => {
         this.book = book;

@@ -20,4 +20,4 @@ deploy:
   skip_cleanup: true
   github_token: 648279d741c8a3260bc9c5974e0e50771699d823
   on:
-    branch: continuous_integration
+    branch: master

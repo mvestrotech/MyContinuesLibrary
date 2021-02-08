@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
-import {rejects} from 'assert';
 
 @Injectable({
   providedIn: 'root'

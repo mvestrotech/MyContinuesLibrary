@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SingleBookComponent } from './single-book.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('SingleBookComponent', () => {
   let component: SingleBookComponent;
@@ -8,7 +9,8 @@ describe('SingleBookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SingleBookComponent ]
+      declarations: [ SingleBookComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
   });

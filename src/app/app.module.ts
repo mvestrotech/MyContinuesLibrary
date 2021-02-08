@@ -12,13 +12,9 @@ import {AuthService} from './services/auth.service';
 import {BooksService} from './services/books.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes} from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import {AuthGuardService} from './services/auth-guard.service';
-import { BookingListComponent } from './booking-list/booking-list.component';
-import { SingleBookingComponent } from './booking-list/single-booking/single-booking.component';
-import {BookingService} from './services/booking.service';
-import {BookingFormComponent} from './booking-list/booking-form/booking-form.component';
 
 const appRoutes: Routes = [
   { path: 'auth/signup', component: SignupComponent },
@@ -26,7 +22,6 @@ const appRoutes: Routes = [
   { path: 'books', canActivate: [AuthGuardService], component: BookListComponent },
   { path: 'books/new', canActivate: [AuthGuardService], component: BookFormComponent },
   { path: 'books/view/:id', canActivate: [AuthGuardService], component: SingleBookComponent },
-  { path: 'booking', canActivate: [AuthGuardService], component: BookingFormComponent },
   { path:  '', redirectTo: 'books', pathMatch: 'full'},
   { path: '**', redirectTo: 'books' }
 ];
@@ -40,24 +35,20 @@ const appRoutes: Routes = [
     SingleBookComponent,
     BookFormComponent,
     HeaderComponent,
-    BookingListComponent,
-    BookFormComponent,
-    BookingFormComponent,
-    SingleBookingComponent
+    BookFormComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [
     AuthService,
     BooksService,
-    AuthService,
-    BookingService
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

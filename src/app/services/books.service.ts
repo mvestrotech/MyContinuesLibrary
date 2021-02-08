@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Book} from '../models/Book.model';
 import {Subject} from 'rxjs';
 import firebase from 'firebase';
-import {Booking} from '../models/Booking.model';
 
 @Injectable({
   providedIn: 'root'
