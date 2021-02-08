@@ -47,7 +47,6 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "baseHref": "https://my-continues-library.herokuapp.com/",
               "budgets": [
                 {
                   "type": "initial",
