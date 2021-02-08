@@ -18,6 +18,6 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: 648279d741c8a3260bc9c5974e0e50771699d823
+  github_token: 73f35c6d53c97fe263ccefb7a7e412d8938e226a
   on:
     branch: main
