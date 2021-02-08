@@ -2,21 +2,43 @@ dist: xenial
 sudo: false
 
 language: node_js
-node_js:
-  - "10"
 
-cache:
-  directories:
-    - ./node_modules
+services:
+  - docker
 
-install:
-  - npm install
+before_script:
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin   #login to dockerhub
+  - curl https://cli-assets.heroku.com/install.sh | sh  #install heroku
+  - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com  #login to registry.heroku.com
 
 script:
-  - npm run-script build
+  - docker build -t mvestro/my-continues-library .
+  - docker tag mvestro/my-continues-library registry.heroku.com/$HEROKU_APP/web
 
 deploy:
-  provider: heroku
-  api_key: 0c0d5f72-ca98-4151-bad2-68ca5eaafc37
-  app: my-continues-library
-  on: main
+  provider: script
+  script:
+    docker push mvestro/my-continues-library;
+    docker push registry.heroku.com/$HEROKU_APP/web;
+    heroku container:release web --app $HEROKU_APP
+  on:
+    branch: main
+
+#node_js:
+#  - "10"
+#
+#cache:
+#  directories:
+#    - ./node_modules
+#
+#install:
+#  - npm install
+
+#script:
+#  - npm run-script build
+#
+#deploy:
+#  provider: heroku
+#  api_key: 0c0d5f72-ca98-4151-bad2-68ca5eaafc37
+#  app: my-continues-library
+#  on: main
