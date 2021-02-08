@@ -1,46 +1,23 @@
-#dist: xenial
-#sudo: false
-#
-#language: node_js
-#node_js:
-#  - "10"
-#
-#cache:
-#  directories:
-#    - ./node_modules
-#
-#install:
-#  - npm install
-#
-#script:
-#  - npm run-script build
-#
-#deploy:
-#  provider: pages
-#  skip_cleanup: true
-#  github_token: aa116c60c45a7f0865c69bdb54c330fd6391a00c
-#  local_dir: dist/angular-github-pages-travis
-#  on:
-#    branch: main
+dist: xenial
+sudo: false
 
-jobs:
-  include:
-    - stage: unit tests
-      script: "Running unit tests (1)"
-    - stage: unit tests
-      script: "Running unit tests (2)"
-    - stage: deploy to staging
-      script: skip
-      deploy: &heroku
-        provider: heroku
-        app: sf-stages-staging
-        api_key: $HEROKU_AUTH_TOKEN
-    - stage: test staging
-      script: 'curl http://sf-stages-staging.herokuapp.com'
-    - stage: deploy to production
-      script: skip
-      deploy:
-        <<: *heroku
-        app: sf-stages-production
-    - stage: test production
-      script: 'curl http://sf-stages-production.herokuapp.com'
+language: node_js
+node_js:
+  - "10"
+
+cache:
+  directories:
+    - ./node_modules
+
+install:
+  - npm install
+
+script:
+  - npm run-script build
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "0c0d5f72-ca98-4151-bad2-68ca5eaafc37"
+  on:
+    branch: main
