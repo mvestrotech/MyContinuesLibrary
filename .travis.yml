@@ -18,4 +18,5 @@ script:
 deploy:
   provider: heroku
   api_key: 0c0d5f72-ca98-4151-bad2-68ca5eaafc37
+  app: my-continues-library
   on: main
