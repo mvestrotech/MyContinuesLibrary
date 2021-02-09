@@ -13,3 +13,4 @@ RUN npm run build --prod
 FROM nginx:1.15.8-alpine
 
 COPY --from=builder /usr/src/app/dist/MyLibrary/ /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
