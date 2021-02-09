@@ -1,35 +1,51 @@
-dist: xenial
-sudo: false
-
-language: node_js
-
-node_js:
-  - "10"
+language: ruby
 
 services:
   - docker
 
-before_script:
-  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin   #login to dockerhub
-  - curl https://cli-assets.heroku.com/install.sh | sh  #install heroku
-  - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com  #login to registry.heroku.com
+before_install:
+  - docker pull carlad/sinatra
+  - docker run -d -p 127.0.0.1:80:4567 carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
+  - docker ps -a
+  - docker run carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec rake test"
 
-jobs:
-  include:
-    - stage: test
-      script: npm test
-    - stage: deploy
-      script:
-        - docker build -t mvestro/my-continues-library .
-        - docker tag mvestro/my-continues-library registry.heroku.com/$HEROKU_APP/web
-        deploy:
-          provider: script
-          script:
-            docker push mvestro/my-continues-library;
-            docker push registry.heroku.com/$HEROKU_APP/web;
-            heroku container:release web --app $HEROKU_APP
-          on:
-            branch: main
+script:
+  - bundle exec rake test
+
+#dist: xenial
+#sudo: false
+#
+#language: node_js
+#
+#node_js:
+#  - "10"
+#
+#services:
+#  - docker
+#
+
+
+#before_script:
+#  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin   #login to dockerhub
+#  - curl https://cli-assets.heroku.com/install.sh | sh  #install heroku
+#  - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com  #login to registry.heroku.com
+
+#jobs:
+#  include:
+#    - stage: test
+#      script: npm test
+#    - stage: deploy
+#      script:
+#        - docker build -t mvestro/my-continues-library .
+#        - docker tag mvestro/my-continues-library registry.heroku.com/$HEROKU_APP/web
+#        deploy:
+#          provider: script
+#          script:
+#            docker push mvestro/my-continues-library;
+#            docker push registry.heroku.com/$HEROKU_APP/web;
+#            heroku container:release web --app $HEROKU_APP
+#          on:
+#            branch: main
 
 
 #node_js:
