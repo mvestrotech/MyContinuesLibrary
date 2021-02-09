@@ -2,13 +2,16 @@ const express = require('express');
 
 const app = express();
 
-app.use(express.static('./dist/MyLibrary'));
+app.use(express.static(__dirname + '/dist'));
 
-app.get('/*', function (req, res) {
-  res.sendFile('index.html', { root: 'dist/MyLibrary' }
-  );
+app.get('/assets', function (req,res){
+  res.sendFile(__dirname + '/dist/assets');
 });
+app.get('/*', function (req,res){
+  res.sendFile(__dirname + '/dist/assets');
+})
 
-app.listen(process.env.PORT || 8080);
-
-console.log(`Running on port ${process.env.PORT || 8080}`)
+var port = process.env.PORT || 80;
+app.listen(port,function (){
+  console.log('server running on port ' + port + '.');
+});
