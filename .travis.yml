@@ -1,25 +1,3 @@
-language: node_js
-
-node_js:
-  - "10"
-
-services:
-  - docker
-
-before_install:
-  - docker pull mvestro/my-continues-library
-  - docker docker run -p 3000:80  mvestro/my-continues-library
-
-script:
-  docker push mvestro/my-continues-library;
-  docker push registry.heroku.com/$HEROKU_APP/web;
-  heroku container:release web --app $HEROKU_APP
-on:
-  branch: main
-
-#dist: xenial
-#sudo: false
-#
 #language: node_js
 #
 #node_js:
@@ -28,29 +6,51 @@ on:
 #services:
 #  - docker
 #
+#before_install:
+#  - docker pull mvestro/my-continues-library
+#  - docker docker run -p 3000:80  mvestro/my-continues-library
+#
+#script:
+#  docker push mvestro/my-continues-library;
+#  docker push registry.heroku.com/$HEROKU_APP/web;
+#  heroku container:release web --app $HEROKU_APP
+#on:
+#  branch: main
+
+dist: xenial
+sudo: false
+
+language: node_js
+
+node_js:
+  - "10"
+
+services:
+  - docker
 
 
-#before_script:
-#  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin   #login to dockerhub
-#  - curl https://cli-assets.heroku.com/install.sh | sh  #install heroku
-#  - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com  #login to registry.heroku.com
 
-#jobs:
-#  include:
-#    - stage: test
-#      script: npm test
-#    - stage: deploy
-#      script:
-#        - docker build -t mvestro/my-continues-library .
-#        - docker tag mvestro/my-continues-library registry.heroku.com/$HEROKU_APP/web
-#        deploy:
-#          provider: script
-#          script:
-#            docker push mvestro/my-continues-library;
-#            docker push registry.heroku.com/$HEROKU_APP/web;
-#            heroku container:release web --app $HEROKU_APP
-#          on:
-#            branch: main
+before_script:
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin   #login to dockerhub
+  - curl https://cli-assets.heroku.com/install.sh | sh  #install heroku
+  - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com  #login to registry.heroku.com
+
+jobs:
+  include:
+    - stage: test
+      script: npm test
+    - stage: deploy
+      script:
+        - docker build -t mvestro/my-continues-library .
+        - docker tag mvestro/my-continues-library registry.heroku.com/$HEROKU_APP/web
+        deploy:
+          provider: script
+          script:
+            docker push mvestro/my-continues-library;
+            docker push registry.heroku.com/$HEROKU_APP/web;
+            heroku container:release web --app $HEROKU_APP
+          on:
+            branch: main
 
 
 #node_js:
@@ -62,7 +62,7 @@ on:
 #
 #install:
 #  - npm install
-
+#
 #script:
 #  - npm run-script build
 #
