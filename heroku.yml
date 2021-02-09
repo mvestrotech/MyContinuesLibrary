@@ -1,5 +1,4 @@
 build:
   docker:
     web: Dockerfile
-    worker: mvestro/my-continues-library
 
