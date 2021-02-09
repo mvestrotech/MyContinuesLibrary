@@ -1,17 +1,12 @@
 const express = require('express');
+const path = require('path');
 
 const app = express();
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static('./dist/MyLibrary'));
 
-app.get('/assets', function (req,res){
-  res.sendFile(__dirname + '/dist/assets');
-});
-app.get('/*', function (req,res){
-  res.sendFile(__dirname + '/dist/assets');
-})
+app.get('/*', (req, res) =>
+  res.sendFile('index.html', { root: 'dist/MyLibrary/' })
+);
 
-var port = process.env.PORT || 80;
-app.listen(port,function (){
-  console.log('server running on port ' + port + '.');
-});
+app.listen(process.env.PORT || 8080);
