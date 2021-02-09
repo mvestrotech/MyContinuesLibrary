@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build --prod
 
-FROM nginx:1.15.8-alpine
+FROM nginx:1.19.6
 
 COPY default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY nginx.conf /etc/nginx/nginx.conf
